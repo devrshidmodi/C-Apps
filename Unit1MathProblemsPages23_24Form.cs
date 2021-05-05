@@ -12,8 +12,8 @@ namespace Unit_1_Homework_Assignment_3
 {
     public partial class Unit1MathProblemsPages23_24Form : Form
     {
-        // This doesn't require any fields (global variables).
-
+        // This project doesn't require any fields (global variables).
+        
         // Constructor Method
         public Unit1MathProblemsPages23_24Form()
         {
@@ -23,22 +23,10 @@ namespace Unit_1_Homework_Assignment_3
             // designer, the tab control is not visible. Not sure why the tab control behaves this way.
             tabControl1.Visible = true;
 
-
-            // Note that the 'DropDownStyle' property of each combo box was set to 'DropDownList' to make 
-            // make both combo boxes "read only". This eliminates the need for input-checking code.
-
-            // Set the combo boxes and text boxes to display today's date.
-            string[] monthName = { "January", "February", "March", "April", "May", "June",
-                                   "July", "August", "September", "October", "November", "December" };
-            DateTime rightNow = DateTime.Now;
-
-            // The order of the following statements matters! Try changing the order to see what happens.
-
-            DayComboBox.Text = rightNow.Day.ToString();
-            DoomsdayYearTextBox.Text = rightNow.Year.ToString();
-            MonthComboBox.Text = monthName[rightNow.Month + 1];
+            // Set the 'Text' property to "January" by default.
+            // Note that the 'DropDownStyle' property was set to 'DropDownList' to make 'MonthComboBox' "read only".
+            MonthComboBox.Text = "January";
         }
-
 
         #region Event Handlers
 
@@ -47,100 +35,59 @@ namespace Unit_1_Homework_Assignment_3
         // The class was added by right-clicking on the project "Unit 1 Homework Assignment 3" and selecting
         // "Add > Class..." from the context menu.
 
-        // Adjust the number of days in the month depending on which month is selected.
-        private void MonthComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // 31 Days -> Jan, Mar, May, Jul, Aug, Oct, Dec (Months 1, 3, 5, 7, 8, 10, 12)
-            // 30 Days -> Apr, Jun, Sep, Nov (Months 4, 6, 9, 11) 
-            // 28 Days -> Feb, if not a leap year (Month 2)
-            // 29 Days -> Feb, if is a leap year (Month 2)
-
-            // "January" is at index 0, "February" is at index 1, etc. 
-            int month = MonthComboBox.SelectedIndex + 1;
-
-            int year = Convert.ToInt32(DoomsdayYearTextBox.Text);
-
-            int daysInMonth;
-
-            if (month % 2 == 1 & month <= 7 || month == 8 || month == 10 || month == 12) //Jan, Mar, May, Jul, Aug, Oct, Dec
-            {
-                daysInMonth = 31;
-            }
-            else if (month != 2) // Apr, Jun, Sep, Nov
-            {
-                daysInMonth = 30;
-            }
-            else //Feb
-            {
-                if (!MathProblems.IsLeapYear(year))
-                {
-                    daysInMonth = 28;
-                }
-                else
-                {
-                    daysInMonth = 29;
-                }
-
-            }
-
-            // Save the currently selected day.
-            int currentlySelectedDay = Convert.ToInt32(DayComboBox.Text);
-
-            // Clear 'DayComboBox' then add the the consecutive integers from 1 to 'daysInMonth'.
-            // This clears the currently selected day as well. This will be restored later.
-            DayComboBox.Items.Clear();
-            for (int i = 1; i <= daysInMonth; i++)
-            {
-                DayComboBox.Items.Add(i.ToString());
-            }
-
-            // Now restore the selected day if possible. If not set the day to the last day of the month.
-            if (currentlySelectedDay <= daysInMonth)
-            {
-                DayComboBox.SelectedItem = DayComboBox.Items[currentlySelectedDay - 1].ToString();
-            }
-            else
-            {
-                DayComboBox.SelectedItem = DayComboBox.Items[DayComboBox.Items.Count - 1].ToString();
-            }
-
-        }
-
-        // If the year changes from a non-leap year to a leap year or vice versa, AND the month is February,
-        // the days in 'DayComboBox' need to be adjusted accordingly.
-        private void DoomsdayYearTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (MonthComboBox.Text == "February")
-            {
-                int year = Convert.ToInt32(DoomsdayYearTextBox.Text);
-                bool isLeapYear = MathProblems.IsLeapYear(year);
-
-                if (isLeapYear && DayComboBox.Items.Count == 28)
-                {
-                    // Add the 29th day to 'DayComboBox'
-                    DayComboBox.Items.Add("29");
-                }
-                else if (!isLeapYear && DayComboBox.Items.Count == 29)
-                {
-                    // Save the currently selected day.
-                    int currentlySelectedDay = Convert.ToInt32(DayComboBox.Text);
-
-                    // Remove the 29th day from 'DayComboBox'
-                    DayComboBox.Items.Remove("29");
-
-                    // If 29 was originally selected, change it to 28 because date changed to a non-leap year
-                    if (currentlySelectedDay == 29)
-                    {
-                        DayComboBox.Text = "28";
-                    }
-                }
-            }
-
-        }
-
         #endregion
 
+        private void IsPrimeButton_Click(object sender, EventArgs e)
+        {
+            int n = Convert.ToInt32(IntegerTextBox.Text);
+            PrimeAnswerLabel.Text = MathProblems.IsPrime(n).ToString();
+        }
 
+        private void DiscriminantButton_Click(object sender, EventArgs e)
+        {
+            double a = Convert.ToDouble(aTextBox.Text);
+            double b = Convert.ToDouble(bTextBox.Text);
+            double c = Convert.ToDouble(cTextBox.Text);
+            DiscriminantLabel.Text = MathProblems.Discriminant(a, b, c).ToString();
+        }
 
+        private void LinearEquationButton_Click(object sender, EventArgs e)
+        {
+            double a = Convert.ToDouble(LinearCoefficientTextBox.Text);
+            double b = Convert.ToDouble(ConstantCoefficientTextBox.Text);
+            double c = Convert.ToDouble(RightSideOfEquationTextBox.Text);
+            LinearEquationLabel.Text = MathProblems.LinearEquationSolution(a, b, c).ToString();
+        }
+
+        private void DistanceButton_Click(object sender, EventArgs e)
+        {
+            double x1= Convert.ToDouble(x1TextBox.Text);
+            double y1= Convert.ToDouble(y1TextBox.Text);
+            double x2 = Convert.ToDouble(x2TextBox.Text);
+            double y2 = Convert.ToDouble(y2TextBox.Text);
+            DistanceLabel.Text = MathProblems.Distance(x1, y1, x2, y2).ToString();
+        }
+
+        private void LeapYearButton_Click(object sender, EventArgs e)
+        {
+            int year = Convert.ToInt32(YearTextBox.Text);
+            LeapYearLabel.Text = MathProblems.IsLeapYear(year).ToString();
+        }
+
+        private void DayOfTheWeekButton_Click(object sender, EventArgs e)
+        {
+            string month = MonthComboBox.Text;
+            int day = Convert.ToInt32(textBox1.Text);
+            int year = Convert.ToInt32(DoomsdayYearTextBox.Text);
+            DayOfTheWeekLabel.Text = MathProblems.Doomsday(month, day, year).ToString();
+
+        }
+
+        private void GcdButton_Click(object sender, EventArgs e)
+        {
+            int m = Convert.ToInt32(Integer1TextBox.Text);
+            int n = Convert.ToInt32(Integer2TextBox2.Text);
+            GcdLabel.Text = MathProblems.Gcd(m, n).ToString();
+        }
     }
 }

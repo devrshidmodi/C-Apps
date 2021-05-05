@@ -26,58 +26,35 @@ namespace Unit_1_Homework_Assignment_3
         public static bool IsPrime(int n)
         {
             bool prime = true;
-
-
+            for (int i = 2; i <= n / 2; i++)
+            {
+                if (n % i == 0)
+                    prime = false;
+            }
             return prime; //Keep in mind that the best practice is to have one 'return' at the end.
         }
 
-        // Question 2: 'Discriminant' returns b^2-4ac unless something goes wrong. 
-        /*
-         * The only thing that could go wrong in the computation of b^2-4ac is numeric overflow, that is, 
-         * the result is either > the largest positive double value (1.79769313486232E308) or < the
-         * "largest" negative value (−1.79769313486231570E308).
-         * 
-         * For example, a=-1E308, b=1E308, c=1E308 would result in b^2-4ac = (1E308)^2 - 4(-1E308)(1E308) = 5E616, 
-         * which is hundreds of orders of magnitude greater than the largest double value. 
-         * In this case, the value of the variable 'd' would be double.PositiveInfinity. If the result turned out
-         * to be smaller than −1.79769313486231570E308, then the value of 'd' would be double.NegativeInfinity.
-         * The returned value can never be double.NaN. NaN ("not a number") results from calculations involving
-         * undefined operations such as dividing by zero or the square root of a negative number.
-         */
+        // Question 2: 'Discriminant' returns b^2-4ac unless something goes wrong, in which case it returns NaN.
         public static double Discriminant(double a, double b, double c)
         {
-            // A local variable is not needed in this method. Simply return the result of computing
-            // b^2-4ac, which can be a number, +infinity, or -infinity.
-
-            return Math.Pow(b, 2) - 4 * a * c;
+            
+            return ((Math.Pow(b,2)- (4*a*c))); //Keep in mind that the best practice is to have one 'return' at the end.
         }
 
-        // Question 3: 'LinearEquationSolution' returns the solution to ax+b=c unless something goes wrong.
-        // In this case, the result can be a number, +infinity, -infinity, or NaN. NaN will be the result
-        // if division by zero occurs. Since the solution to this equation is x = (c-b)/a, NaN will be
-        // the result if a=0.
+        // Question 3: 'LinearEquationSolution' returns the solution to ax+b=0 unless something goes wrong,
+        // in which case it returns NaN.
         public static double LinearEquationSolution(double a, double b, double c)
         {
-            // A local variable is not needed in this method. Simply return the result of computing
-            // (c-b)/a, which can be a number, +infinity, -infinity, or NaN.
-
-            // Temporary return statement to prevent "Not all code paths return a value" error
-            return 0;
+      
+            return ((c-b)/(a)); //Keep in mind that the best practice is to have one 'return' at the end.
         }
 
-        // Question 4: 'Distance' returns the distance between (x1, y1) and (x2, y2) unless something goes wrong.
-        // As with the discriminant, the result can be a number, +infinity, or -infinity.
-        // Although square root is involved in the calculation, NaN cannot be the result because the value of 
-        // (x2 - x1)^2 + (y2 - y1)^2 is always zero or more.
-
+        // Question 4: 'Distance' returns the distance between (x1, y1) and (x2, y2) unless something goes wrong,
+        // in which case it returns NaN.
         public static double Distance(double x1, double y1, double x2, double y2)
         {
-            // A local variable is not needed in this method. Simply return the result of computing
-            // sqrt((x2 - x1)^2 + (y2 - y1)^2), which can be a number, +infinity, or -infinity.
-
-            // Temporary return statement to prevent "Not all code paths return a value" error
-            return 0;
-
+            
+            return (Math.Sqrt((Math.Pow(x2 - x1, 2)) + (Math.Pow(y2 - y1, 2)))); 
         }
 
         // Question 5: 'IsLeapYear' returns 'true' if 'year' is a leap year and 'false' otherwise.
@@ -86,12 +63,7 @@ namespace Unit_1_Homework_Assignment_3
         public static bool IsLeapYear(int year)
         {
             bool leapYear = true;
-
-            // Multiplication has a higher precedence in arithmetic than addition; that is, x is 
-            // performed before + in BEDMAS. Similarly, && has a higher precedence than || in Boolean logic. 
-            // Therefore, the following condition is true only if 'year' is not divisible by 4 OR, 'year' 
-            // is divisible by 100 but NOT by 400.
-            if (year % 4 != 0 || year % 100 == 0 & year % 400 != 0)
+            if (year % 4 != 0 || (year % 100 == 0 && year % 400 != 0))
             {
                 leapYear = false;
             }
@@ -107,18 +79,133 @@ namespace Unit_1_Homework_Assignment_3
         {
             string dayOfWeek = "";
 
+            //Doomsday for years 1700,2100,2500,2900,etc
+
+            int k = 0;
+
+            //Finding Doomsday for years 1500,1900,2300,2700,etc
+
+            if ((year % 400 >= 300))
+            {
+                k = 3;
+            }
+
+            //Finding Doomsday for years 1600,2000,2400,2800,etc
+
+            else if ((year % 400 < 100))
+            {
+                k = 2;
+            }
+
+            //Finding Doomsday for years 1800,2200,2600,3000,etc
+
+            else if ((year % 400 >= 200) && (year % 400 < 300))
+            {
+                k = 5;
+            }
+
+
+            //Finding Doomsday For a specific year
+
+            int a = (year % 100) / 12;
+            int b = (year % 100) % 12;
+            int c = b / 4;
+            int d = (a + b + c) % 7;
+            int dooms = (d + k) % 7;
+
+            int basedate = 0;
+
+            //Leap Year Exception for month of February
+            if (month == "February" && (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)))
+            {
+                basedate = 1;
+            }
+            //Leap Year Exception for month of January
+            else if (month == "January" && (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)))
+            {
+                basedate = 4;
+            }
+            //Non Leap Year for month of January
+            else if (month == "January" && (year % 4 != 0 || (year % 100 == 0 && year % 400 != 0)))
+                basedate = 3;
+                   
+            if (month == "September" || month == "December")
+            {
+                basedate = 5;
+            }
+            //Using Basedates for other Months which do not depend on whether or not year is prime
+            else if (month == "June")
+            {
+                basedate = 6;
+            }
+
+            else if (month == "April" || month == "July")
+            {
+                basedate = 4;
+            }
+
+            else if (month == "October")
+            {
+               basedate = 3;
+            }
+
+            else if (month == "May")
+            {
+                basedate = 2;
+            }
+
+            else if (month == "August")
+            {
+                basedate = 1;
+            }
+
+            //Computing Day of Week
+            int finalans = ((day - basedate) % 7 + dooms) % 7;
+
+            dayOfWeek = "Sunday";
+            
+            if (finalans == 1)
+                dayOfWeek = "Monday";
+            else if (finalans == 2)
+                dayOfWeek = "Tuesday";
+            else if (finalans == 3)
+                dayOfWeek = "Wednesday";
+            else if (finalans == 4)
+                dayOfWeek = "Thursday";
+            else if (finalans == 5)
+                dayOfWeek = "Friday";
+            else if (finalans == 6)
+                dayOfWeek = "Saturday";
 
             return dayOfWeek; //Keep in mind that the best practice is to have one 'return' at the end.
         }
 
-        // Question 7: This method computes GCD(m, n) by brute force (exhaustive search).
-        // 'Gcd' returns the greatest common divisor of 'm' and 'n'.
+        // Question 7: 'Gcd' returns the greatest common divisor of 'm' and 'n'.
         // If 'm' and 'n' are both zero, -1 is returned since gcd(0, 0) is undefined.
 
-        private static int Gcd(int m, int n)
+        public static int Gcd(int m, int n)
         {
             // gcd(0, 0) is undefined -> indicated by returning -1 since gcd(m, n) >= 0
+
             int gcd = -1;
+            
+            // Both integers are positive, therefore, the lowest gcd they can have is 1
+            if (m >0 && n>0)
+            
+            gcd = 1;
+
+            
+            int smaller = Math.Min(m, n);
+            
+            // Working backwards to find GCD from the smaller number
+            for (int i = smaller; i >= 2; i--)
+            {
+                if (m % i == 0 && n % i == 0)
+                {
+                    gcd = i;
+                    break; 
+                }
+            }
 
 
             return gcd; //Keep in mind that the best practice is to have one 'return' at the end.

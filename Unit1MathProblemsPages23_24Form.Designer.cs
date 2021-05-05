@@ -74,6 +74,8 @@
             this.LeapYearLabel = new System.Windows.Forms.Label();
             this.YearTextBox = new System.Windows.Forms.TextBox();
             this.tabQuestion6 = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.MonthComboBox = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -87,8 +89,6 @@
             this.GcdButton = new System.Windows.Forms.Button();
             this.GcdLabel = new System.Windows.Forms.Label();
             this.Integer1TextBox = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.DayComboBox = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabQuestion1.SuspendLayout();
             this.tabQuestion2.SuspendLayout();
@@ -154,6 +154,7 @@
             this.IsPrimeButton.TabIndex = 1;
             this.IsPrimeButton.Text = "Is this integer prime?";
             this.IsPrimeButton.UseVisualStyleBackColor = true;
+            this.IsPrimeButton.Click += new System.EventHandler(this.IsPrimeButton_Click);
             // 
             // tabQuestion2
             // 
@@ -223,6 +224,7 @@
             this.DiscriminantButton.TabIndex = 4;
             this.DiscriminantButton.Text = "Calculate Discriminant";
             this.DiscriminantButton.UseVisualStyleBackColor = true;
+            this.DiscriminantButton.Click += new System.EventHandler(this.DiscriminantButton_Click);
             // 
             // cTextBox
             // 
@@ -314,6 +316,7 @@
             this.LinearEquationButton.TabIndex = 11;
             this.LinearEquationButton.Text = "Solve the Linear Equation";
             this.LinearEquationButton.UseVisualStyleBackColor = true;
+            this.LinearEquationButton.Click += new System.EventHandler(this.LinearEquationButton_Click);
             // 
             // RightSideOfEquationTextBox
             // 
@@ -488,6 +491,7 @@
             this.DistanceButton.TabIndex = 20;
             this.DistanceButton.Text = "Calculate the Distance";
             this.DistanceButton.UseVisualStyleBackColor = true;
+            this.DistanceButton.Click += new System.EventHandler(this.DistanceButton_Click);
             // 
             // y1TextBox
             // 
@@ -547,6 +551,7 @@
             this.LeapYearButton.TabIndex = 4;
             this.LeapYearButton.Text = "Was this, is this, or will this be a leap year?";
             this.LeapYearButton.UseVisualStyleBackColor = true;
+            this.LeapYearButton.Click += new System.EventHandler(this.LeapYearButton_Click);
             // 
             // LeapYearLabel
             // 
@@ -568,7 +573,7 @@
             // 
             // tabQuestion6
             // 
-            this.tabQuestion6.Controls.Add(this.DayComboBox);
+            this.tabQuestion6.Controls.Add(this.textBox1);
             this.tabQuestion6.Controls.Add(this.label19);
             this.tabQuestion6.Controls.Add(this.MonthComboBox);
             this.tabQuestion6.Controls.Add(this.label20);
@@ -583,6 +588,24 @@
             this.tabQuestion6.TabIndex = 5;
             this.tabQuestion6.Text = "6. Doomsday";
             this.tabQuestion6.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.textBox1.Location = new System.Drawing.Point(240, 55);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(127, 26);
+            this.textBox1.TabIndex = 13;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label19.Location = new System.Drawing.Point(251, 19);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(93, 20);
+            this.label19.TabIndex = 12;
+            this.label19.Text = "Enter a Day";
             // 
             // MonthComboBox
             // 
@@ -602,28 +625,27 @@
             "October",
             "November",
             "December"});
-            this.MonthComboBox.Location = new System.Drawing.Point(10, 55);
+            this.MonthComboBox.Location = new System.Drawing.Point(16, 55);
             this.MonthComboBox.Name = "MonthComboBox";
             this.MonthComboBox.Size = new System.Drawing.Size(134, 28);
             this.MonthComboBox.TabIndex = 11;
-            this.MonthComboBox.SelectedIndexChanged += new System.EventHandler(this.MonthComboBox_SelectedIndexChanged);
             // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(152, 19);
+            this.label20.Location = new System.Drawing.Point(12, 19);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(99, 20);
+            this.label20.Size = new System.Drawing.Size(116, 20);
             this.label20.TabIndex = 10;
-            this.label20.Text = "Select a Day";
+            this.label20.Text = "Select a Month";
             // 
             // label21
             // 
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(465, 86);
+            this.label21.Location = new System.Drawing.Point(428, 151);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(167, 43);
+            this.label21.Size = new System.Drawing.Size(233, 28);
             this.label21.TabIndex = 9;
             this.label21.Text = "Algorithm doesn\'t work for dates in 1582 before the adoption of the Gregorian cal" +
     "endar.";
@@ -632,7 +654,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(299, 19);
+            this.label13.Location = new System.Drawing.Point(408, 19);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(161, 20);
             this.label13.TabIndex = 9;
@@ -641,18 +663,19 @@
             // DayOfTheWeekButton
             // 
             this.DayOfTheWeekButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DayOfTheWeekButton.Location = new System.Drawing.Point(468, 19);
+            this.DayOfTheWeekButton.Location = new System.Drawing.Point(412, 107);
             this.DayOfTheWeekButton.Name = "DayOfTheWeekButton";
-            this.DayOfTheWeekButton.Size = new System.Drawing.Size(149, 64);
+            this.DayOfTheWeekButton.Size = new System.Drawing.Size(263, 30);
             this.DayOfTheWeekButton.TabIndex = 8;
             this.DayOfTheWeekButton.Text = "What was the day of the week?";
             this.DayOfTheWeekButton.UseVisualStyleBackColor = true;
+            this.DayOfTheWeekButton.Click += new System.EventHandler(this.DayOfTheWeekButton_Click);
             // 
             // DayOfTheWeekLabel
             // 
             this.DayOfTheWeekLabel.AutoSize = true;
             this.DayOfTheWeekLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DayOfTheWeekLabel.Location = new System.Drawing.Point(6, 125);
+            this.DayOfTheWeekLabel.Location = new System.Drawing.Point(12, 112);
             this.DayOfTheWeekLabel.Name = "DayOfTheWeekLabel";
             this.DayOfTheWeekLabel.Size = new System.Drawing.Size(203, 20);
             this.DayOfTheWeekLabel.TabIndex = 7;
@@ -661,11 +684,10 @@
             // DoomsdayYearTextBox
             // 
             this.DoomsdayYearTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DoomsdayYearTextBox.Location = new System.Drawing.Point(303, 55);
+            this.DoomsdayYearTextBox.Location = new System.Drawing.Point(415, 55);
             this.DoomsdayYearTextBox.Name = "DoomsdayYearTextBox";
             this.DoomsdayYearTextBox.Size = new System.Drawing.Size(154, 26);
             this.DoomsdayYearTextBox.TabIndex = 6;
-            this.DoomsdayYearTextBox.TextChanged += new System.EventHandler(this.DoomsdayYearTextBox_TextChanged);
             // 
             // tabQuestion7
             // 
@@ -708,6 +730,7 @@
             this.GcdButton.TabIndex = 4;
             this.GcdButton.Text = "Greatest Common Divisor";
             this.GcdButton.UseVisualStyleBackColor = true;
+            this.GcdButton.Click += new System.EventHandler(this.GcdButton_Click);
             // 
             // GcdLabel
             // 
@@ -726,58 +749,6 @@
             this.Integer1TextBox.Name = "Integer1TextBox";
             this.Integer1TextBox.Size = new System.Drawing.Size(114, 26);
             this.Integer1TextBox.TabIndex = 2;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(6, 19);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(116, 20);
-            this.label19.TabIndex = 10;
-            this.label19.Text = "Select a Month";
-            // 
-            // DayComboBox
-            // 
-            this.DayComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.DayComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DayComboBox.FormattingEnabled = true;
-            this.DayComboBox.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30",
-            "31"});
-            this.DayComboBox.Location = new System.Drawing.Point(156, 55);
-            this.DayComboBox.Name = "DayComboBox";
-            this.DayComboBox.Size = new System.Drawing.Size(134, 28);
-            this.DayComboBox.TabIndex = 11;
             // 
             // Unit1MathProblemsPages23_24Form
             // 
@@ -867,7 +838,7 @@
         private System.Windows.Forms.Button GcdButton;
         private System.Windows.Forms.Label GcdLabel;
         private System.Windows.Forms.TextBox Integer1TextBox;
-        private System.Windows.Forms.ComboBox DayComboBox;
+        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label19;
     }
 }
